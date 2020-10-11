@@ -1,3 +1,6 @@
+# Wad Up
+Application used to find what's going on in your area! Narrow down your view with the map and see what activities are happening near you.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
