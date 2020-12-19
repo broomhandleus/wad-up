@@ -1,24 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  mapView: {
+    backgroundColor: "green",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh"
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  listView: {
+    backgroundColor: "blue",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh"
   },
 }));
 
@@ -26,8 +23,13 @@ export default function Main() {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-
-    </Container>
+    <Grid container spacing={0}>
+      <Grid className={classes.mapView} item xs={9}>
+        <div>Map view!</div>
+      </Grid>
+      <Grid className={classes.listView} item xs={3}>
+        <div>Event list view!</div>
+      </Grid>
+    </Grid>
   );
 }
