@@ -2,6 +2,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
+// Mock data imports
+import {events} from '../mockData/event';
+
 const useStyles = makeStyles((theme) => ({
   mapView: {
     backgroundColor: "green",
@@ -21,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Main() {
   const classes = useStyles();
+
+  // Will need to actually call some API method to get all the events in the end state
+  console.log(events);
 
   return (
     <Grid container spacing={0}>

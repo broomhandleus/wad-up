@@ -23,7 +23,7 @@ export interface PaymentMethod {
     securityCode: string;
 }
 
-export const enum SubscriptionLevel {
+export enum SubscriptionLevel {
     bronze = "BRONZE",
     silver = "SILVER",
     gold = "GOLD",
@@ -53,7 +53,7 @@ export interface LatLong {
 }
 
 // Need more caategories! Each can be designated a color on the UI
-export const enum EventCategory {
+export enum EventCategory {
     sporting,
     comedy,
     music,
@@ -61,7 +61,7 @@ export const enum EventCategory {
 }
 
 // Definitely up for discussion here. We'll need a description of each to put in the UI so users know what they mean
-export const enum AgeLimitations {
+export enum AgeLimitations {
     family,
     teenage,
     adult
