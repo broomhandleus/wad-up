@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
   listView: {
     display: "flex",
     justifyContent: "center",
-    height: "100vh"
+    height: "100vh",
+    overflowY: "scroll",
   },
 }));
 
