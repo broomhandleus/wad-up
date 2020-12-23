@@ -8,8 +8,8 @@ export const events: event[] = [
         datetime: "January 1, 2022 7 pm", // Once again need to worry about how this will be formatted
         locationName: "The Laugh Factory",
         location: {
-            latitude: "33.7490N", // Need to think about format of latlong as well
-            longitude: "84.3880W",
+            latitude: 33.7490, // Need to think about format of latlong as well
+            longitude: -84.3880,
         },
         category: EventCategory.comedy,
         host: "10",
@@ -25,8 +25,8 @@ export const events: event[] = [
         datetime: "January 2, 2022 1 pm", // Once again need to worry about how this will be formatted
         locationName: "The Stadium",
         location: {
-            latitude: "19.7604N",
-            longitude: "95.3698W",
+            latitude: 29.7604,
+            longitude: -95.3698,
         },
         category: EventCategory.sporting,
         host: "11",
@@ -42,8 +42,8 @@ export const events: event[] = [
         datetime: "January 3, 2022 8 pm", // Once again need to worry about how this will be formatted
         locationName: "The Stage",
         location: {
-            latitude: "34.0522N",
-            longitude: "118.2437W",
+            latitude: 34.0522,
+            longitude: -118.2437,
         },
         category: EventCategory.music,
         host: "12",
@@ -59,8 +59,8 @@ export const events: event[] = [
         datetime: "January 4, 2022 12 pm", // Once again need to worry about how this will be formatted
         locationName: "The Playground",
         location: {
-            latitude: "41.8781N",
-            longitude: "87.6298W",
+            latitude: 41.8781,
+            longitude: -87.6298,
         },
         category: EventCategory.other,
         host: "12",
@@ -76,8 +76,8 @@ export const events: event[] = [
         datetime: "January 5, 2022 12 pm", // Once again need to worry about how this will be formatted
         locationName: "The Bar",
         location: {
-            latitude: "40.7128N",
-            longitude: "74.0060W",
+            latitude: 40.7128,
+            longitude: -74.0060,
         },
         category: EventCategory.other,
         host: "13",

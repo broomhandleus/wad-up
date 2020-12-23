@@ -16,7 +16,6 @@ interface props {
 export default function EventList(props: props) {
   const classes = useStyles();
   const events = props.events;
-  console.log(events);
   const listEvents = events.map((e) =>
     <EventCard event={e} key={e._id}/>
   )
