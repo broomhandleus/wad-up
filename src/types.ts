@@ -30,7 +30,7 @@ export enum SubscriptionLevel {
     platinum = "Platinum"
 }
 
-// Maybe include an image in the event somehow? can check on that later
+// Maybe include an image in the event somehow? can check on that later. will use faker image for now
 export interface event {
     _id: string;
     name: string;

@@ -3,30 +3,39 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
+  CardMedia,
   CardActions,
   CardContent,
   CardHeader,
   Collapse,
   IconButton,
+  Paper,
   Tooltip,
   Typography
 } from '@material-ui/core';
 import { event } from '../types';
 import { StarBorder, ExpandMore } from '@material-ui/icons';
 
-const useStyles = makeStyles((theme) => ({
+var faker = require('faker');
+
+const useStyles = makeStyles((myTheme) => ({
   card: {
-    margin: "8px 0px"
+    margin: "8px 0px",
+    elevation: 24
   },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
+    transition: myTheme.transitions.create('transform', {
+      duration: myTheme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+  },
+  media: {
+    height: 0,
+    paddingTop: '40%', // 16:9
   },
 }));
 
@@ -53,10 +62,15 @@ export default function EventCard(props: props) {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} elevation={4}>
       <CardHeader
         title={event.name}
         subheader={event.datetime}
+      />
+      <CardMedia
+        className={classes.media}
+        image={faker.image.image()}
+        title="Faked image"
       />
       <CardContent>
         <Typography variant="body2" component="p">
