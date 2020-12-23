@@ -24,13 +24,13 @@ export interface PaymentMethod {
 }
 
 export enum SubscriptionLevel {
-    bronze = "BRONZE",
-    silver = "SILVER",
-    gold = "GOLD",
-    platinum = "PLATINUM"
+    bronze = "Bronze",
+    silver = "Silver",
+    gold = "Gold",
+    platinum = "Platinum"
 }
 
-// Maybe include an image in the event somehow? can check on that later
+// Maybe include an image in the event somehow? can check on that later. will use faker image for now
 export interface event {
     _id: string;
     name: string;
@@ -54,15 +54,15 @@ export interface LatLong {
 
 // Need more caategories! Each can be designated a color on the UI
 export enum EventCategory {
-    sporting,
-    comedy,
-    music,
-    other
+    sporting = "Sporting",
+    comedy = "Comedy",
+    music = "Music",
+    other = "Other"
 }
 
 // Definitely up for discussion here. We'll need a description of each to put in the UI so users know what they mean
 export enum AgeLimitations {
-    family,
-    teenage,
-    adult
+    family = "Family",
+    teenage = "Teenage",
+    adult = "Adult"
 }

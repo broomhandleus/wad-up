@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import EventList from './EventList';
 
 // Mock data imports
 import {events} from '../mockData/event';
@@ -14,19 +15,19 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh"
   },
   listView: {
-    backgroundColor: "blue",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    height: "100vh"
+    height: "100vh",
+    overflowY: "scroll",
   },
 }));
 
+// need to define an interface for the props if we use it
 export default function Main() {
   const classes = useStyles();
 
   // Will need to actually call some API method to get all the events in the end state
-  console.log(events);
+  // TODO: Paginate the event list on the left? or just load more on scroll?
 
   return (
     <Grid container spacing={0}>
@@ -34,7 +35,7 @@ export default function Main() {
         <div>Map view!</div>
       </Grid>
       <Grid className={classes.listView} item xs={3}>
-        <div>Event list view!</div>
+        <EventList events={events}/>
       </Grid>
     </Grid>
   );
