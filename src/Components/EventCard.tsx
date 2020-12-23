@@ -9,11 +9,10 @@ import {
   CardHeader,
   Collapse,
   IconButton,
-  Paper,
   Tooltip,
   Typography
 } from '@material-ui/core';
-import { event } from '../types';
+import { event, EventCategory } from '../types';
 import { StarBorder, ExpandMore } from '@material-ui/icons';
 
 var faker = require('faker');
@@ -21,7 +20,19 @@ var faker = require('faker');
 const useStyles = makeStyles((myTheme) => ({
   card: {
     margin: "8px 0px",
-    elevation: 24
+    elevation: 24,
+  },
+  sportingEvent: {
+    borderLeft: "6px solid orange"
+  },
+  musicEvent: {
+    borderLeft: "6px solid green"
+  },
+  comedyEvent: {
+    borderLeft: "6px solid purple"
+  },
+  otherEvent: {
+    borderLeft: "6px solid gray"
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -61,8 +72,14 @@ export default function EventCard(props: props) {
     collapseTitle = "Show Less";
   }
 
+  // There's probably a better way to do those conditional border classes. think on that.
   return (
-    <Card className={classes.card} elevation={4}>
+    <Card className={clsx(classes.card, {
+        [classes.sportingEvent]: event.category === EventCategory.sporting,
+        [classes.musicEvent]: event.category === EventCategory.music,
+        [classes.comedyEvent]: event.category === EventCategory.comedy,
+        [classes.otherEvent]: event.category === EventCategory.other,
+      })} elevation={4}>
       <CardHeader
         title={event.name}
         subheader={event.datetime}
