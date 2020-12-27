@@ -24,6 +24,7 @@ export default function Main() {
   const classes = useStyles();
 
   // Will need to actually call some API method to get all the events in the end state
+  // Use a separate file to control API calls
   // TODO: Paginate the event list on the right? or just load more on scroll?
 
   return (

@@ -87,3 +87,60 @@ export const events: event[] = [
         smoking: true,
     },
 ]
+
+// var faker = require('faker');
+
+// function getRandomInRange(from: number, to: number): number {
+//     return (Math.random() * (to - from));
+// }
+
+// function getRandomInt(max: number): number {
+//     return Math.floor(Math.random() * Math.floor(max));
+// }
+
+// function getRandomCategory(): EventCategory {
+//     const categories = [
+//         EventCategory.sporting,
+//         EventCategory.music,
+//         EventCategory.comedy,
+//         EventCategory.other
+//     ]
+//     return categories[getRandomInt(categories.length)];
+// }
+
+// function getRandomAgeLimit(): AgeLimitations {
+//     const ageLimits = [
+//         AgeLimitations.family,
+//         AgeLimitations.adult,
+//         AgeLimitations.teenage,
+//     ]
+//     return ageLimits[getRandomInt(ageLimits.length)];
+// }
+
+// function makeEvents(): event[] {
+//     let events: event[] = [];
+//     for (let i = 0; i < 100; i++) {
+//         let newEvent: event = {
+//             _id: faker.random.uuid(),
+//             name: faker.lorem.word(),
+//             description: faker.lorem.sentence(),
+//             datetime: faker.date.soon(),
+//             locationName: faker.company.companyName(),
+//             location: {
+//                 latitude: getRandomInRange(25, 49),
+//                 longitude: getRandomInRange(-67, -124)
+//             },
+//             category: getRandomCategory(),
+//             host: faker.random.uuid(), // eventually will need to link to a real host
+//             interestShown: 0,
+//             ageLimit: getRandomAgeLimit(),
+//             drinking: faker.random.boolean(),
+//             smoking: faker.random.boolean()
+//         }
+//         events.push(newEvent);
+//     }
+
+//     return events;
+// }
+
+// export const events = makeEvents();
