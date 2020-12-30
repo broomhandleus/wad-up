@@ -13,7 +13,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { event, EventCategory } from '../types';
-import { StarBorder, ExpandMore } from '@material-ui/icons';
+import { StarBorder, ExpandMore, Share, Star } from '@material-ui/icons';
 
 var faker = require('faker');
 
@@ -48,28 +48,40 @@ const useStyles = makeStyles((myTheme) => ({
     height: 0,
     paddingTop: '40%', // 16:9
   },
+  filledStar: {
+    color: "gold",
+  }
 }));
 
 interface props {
   event: event;
 }
 
-// TODO: add method to the Interested Button. Change it to filled when interested
-// This would trigger an API call to increment the interestShown on that event
 // TODO: add in extra elements to the collapse area
-// TODO: Different cards somehow based on event type (border maybe?)
 export default function EventCard(props: props) {
   const classes = useStyles();
   const event = props.event;
 
+  // Handles everything with the collapsable window
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
   let collapseTitle = "Show more"
   if (expanded) {
     collapseTitle = "Show Less";
+  }
+
+  // Handles everything with the interested button. will need api call eventually
+  const [interested, setInterested] = React.useState(false);
+  const handleInterestedClick = () => {
+    setInterested(!interested);
+  };
+  let interestedIcon;
+  if (interested) {
+    interestedIcon = <Star className={classes.filledStar}/>
+  } else {
+    interestedIcon = <StarBorder/>
   }
 
   // There's probably a better way to do those conditional border classes. think on that.
@@ -96,8 +108,13 @@ export default function EventCard(props: props) {
       </CardContent>
       <CardActions disableSpacing>
         <Tooltip title="Interested" placement="right">
-          <IconButton aria-label="Interested">
-            <StarBorder/>
+          <IconButton aria-label="Interested" onClick={handleInterestedClick}>
+            {interestedIcon}
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Share" placement="right">
+          <IconButton aria-label="Share">
+            <Share/>
           </IconButton>
         </Tooltip>
         <Tooltip title={collapseTitle} placement="left">

@@ -48,8 +48,8 @@ export interface event {
 
 // Will need to check if string is the right choice here for those datapoints
 export interface LatLong {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
 }
 
 // Need more caategories! Each can be designated a color on the UI
