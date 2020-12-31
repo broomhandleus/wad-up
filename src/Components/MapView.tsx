@@ -18,11 +18,13 @@ const useStyles = makeStyles((theme) => ({
 // need to define an interface for the props if we use it
 interface props {
   events: event[];
+  getEvents: Function
 }
 
 export default function MapView(props: props) {
   const classes = useStyles();
   const events = props.events;
+  const getEvents = props.getEvents;
   // TODO: set the starting zoom to the default of the user if it exists
   const [center] = useState<[number, number]>([39.8283, -98.5795]);
   const [zoomLevel] = useState(5);
@@ -49,7 +51,7 @@ export default function MapView(props: props) {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MapDetails states={state_outlines} eventMarkers={eventMarkers}/>
+      <MapDetails states={state_outlines} eventMarkers={eventMarkers} getEvents={getEvents}/>
     </MapContainer>
   );
 }

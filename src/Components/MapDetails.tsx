@@ -2,18 +2,28 @@ import React from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
 import { Layer, LeafletMouseEventHandlerFn } from 'leaflet';
 import { Feature, Geometry } from 'geojson';
+import { debounce } from 'lodash';
 
 
 // need to define an interface for the props if we use it
 interface props {
   states: any,
-  eventMarkers: JSX.Element[]
+  eventMarkers: JSX.Element[],
+  getEvents: Function
 }
 
 export default function MapDetails(props: props) {
   const states = props.states;
   const eventMarkers = props.eventMarkers;
+  const getEvents = props.getEvents;
+  // Hook to grab the Leaflet Map instance. Can be done on any children of MapContainer
   const map = useMap();
+
+  // Send new bounds to get new events whenever the map is moved
+  // Map.on caused this event to double each time... very odd
+  map.once('moveend', debounce(() => {
+    getEvents(map.getBounds());
+  }, 2000, { 'leading': true, 'trailing': false }));
 
   // Adds the ability to zoom to each state area when clicked
   const zoomToFeature: LeafletMouseEventHandlerFn = (e) => {
