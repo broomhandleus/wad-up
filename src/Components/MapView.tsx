@@ -7,8 +7,10 @@ import MapDetails from './MapDetails';
 const state_outlines = require("../mapData/state_outlines");
 
 const useStyles = makeStyles((theme) => ({
+  // Calculated height with padding/height of the toolbar in mind. Probably will change later
   mapView: {
-    height: "100vh"
+    marginTop: "8px",
+    height: "calc(100vh - 72px)"
   },
   states: {
     fillColor: "green"
