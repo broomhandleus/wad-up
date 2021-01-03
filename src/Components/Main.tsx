@@ -19,12 +19,6 @@ import { LatLngBounds } from 'leaflet';
 import { event } from '../types';
 
 const useStyles = makeStyles((theme) => ({
-  listView: {
-    display: "flex",
-    justifyContent: "center",
-    height: "calc(100vh - 64px)",
-    overflowY: "scroll",
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -40,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
 // need to define an interface for the props if we use it
 export default function Main() {
   const classes = useStyles();
-  const [currentEvents, setCurrentEvents] = useState(events.slice(0, 5));
+  const [eventNum, setEventNum] = useState(5);
+  const [currentEvents, setCurrentEvents] = useState(events.slice(0, eventNum));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -65,7 +60,7 @@ export default function Main() {
       }
     });
     // Set the state here so it will be updated in the children (only first 5)
-    setCurrentEvents(newEvents.slice(0, 5));
+    setCurrentEvents(newEvents.slice(0, eventNum));
   }
 
   // TODO: Paginate the event list on the right? or just load more on scroll?
@@ -111,8 +106,8 @@ export default function Main() {
       <Grid item xs={9}>
         <MapView events={currentEvents} getEvents={getEvents}></MapView>
       </Grid>
-      <Grid className={classes.listView} item xs={3}>
-        <EventList events={currentEvents}/>
+      <Grid item xs={3}>
+        <EventList events={currentEvents} eventNum={eventNum} setEventNum={setEventNum}/>
       </Grid>
     </Grid>
   );
