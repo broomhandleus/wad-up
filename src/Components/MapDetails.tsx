@@ -7,9 +7,9 @@ import { debounce } from 'lodash';
 
 // need to define an interface for the props if we use it
 interface props {
-  states: any,
-  eventMarkers: JSX.Element[],
-  getEvents: Function
+  states: any;
+  eventMarkers: JSX.Element[];
+  getEvents: Function;
 }
 
 export default function MapDetails(props: props) {
@@ -20,9 +20,8 @@ export default function MapDetails(props: props) {
   const map = useMap();
 
   // Send new bounds to get new events whenever the map is moved
-  // Map.on caused this event to double each time... very odd
   map.once('moveend', debounce(() => {
-    getEvents(map.getBounds());
+    getEvents(map.getBounds())
   }, 2000, { 'leading': true, 'trailing': false }));
 
   // Adds the ability to zoom to each state area when clicked
