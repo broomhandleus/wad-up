@@ -9,7 +9,6 @@ const state_outlines = require("../mapData/state_outlines");
 const useStyles = makeStyles((theme) => ({
   // Calculated height with padding/height of the toolbar in mind. Probably will change later
   mapView: {
-    marginTop: "8px",
     height: "calc(100vh - 72px)"
   },
   states: {
@@ -20,14 +19,14 @@ const useStyles = makeStyles((theme) => ({
 // need to define an interface for the props if we use it
 interface props {
   events: event[];
-  getEvents: Function
+  getEvents: Function;
 }
 
 export default function MapView(props: props) {
   const classes = useStyles();
   const events = props.events;
   const getEvents = props.getEvents;
-  // TODO: set the starting zoom to the default of the user if it exists
+  // TODO: set the starting zoom to the defaults of the user if it exists
   const [center] = useState<[number, number]>([39.8283, -98.5795]);
   const [zoomLevel] = useState(5);
 
@@ -53,7 +52,11 @@ export default function MapView(props: props) {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MapDetails states={state_outlines} eventMarkers={eventMarkers} getEvents={getEvents}/>
+      <MapDetails
+        states={state_outlines}
+        eventMarkers={eventMarkers}
+        getEvents={getEvents}
+      />
     </MapContainer>
   );
 }
