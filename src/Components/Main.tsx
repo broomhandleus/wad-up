@@ -31,7 +31,7 @@ export default function Main() {
     currentEvents: events.slice(0, 5),
     currentEventNum: 5,
     currentEventPage: 1,
-    totalEventPages: 10,
+    totalEventPages: 2,
     currentCategories: ["Sporting", "Comedy", "Music", "Other"]
   })
 
