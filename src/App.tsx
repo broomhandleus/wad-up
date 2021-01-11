@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import 'fontsource-roboto';
 import Main from './Components/Main';
+import Home from './Components/Home';
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/core'
 
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Main/>
+      <Home/>
     </ThemeProvider>
   );
 }
