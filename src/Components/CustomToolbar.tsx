@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   toolbar: {
-    backgroundColor: '#00fa9a',
     color: 'black',
   }
 }));

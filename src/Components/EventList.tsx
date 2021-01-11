@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "125px"
   },
   categorySelect: {
-    minWidth: "250px"
+    width: "75%"
   }
 }));
 
@@ -109,6 +109,13 @@ export default function EventList(props: props) {
                 onChange={onCategoryChanged}
                 renderValue={(selected) => (selected as string[]).join(', ')}
                 label="Categories"
+                MenuProps={{
+                  anchorOrigin: {
+                    vertical: "bottom",
+                    horizontal: "left"
+                  },
+                  getContentAnchorEl: null
+                }}
               >
                 {categoryOptions.map((option) => (
                   <MenuItem key={option} value={option}>
