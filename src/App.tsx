@@ -3,6 +3,7 @@ import './App.css';
 import 'fontsource-roboto';
 import Main from './Components/Main';
 import Home from './Components/Home';
+import Login from './Components/Login';
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/core'
 
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Home/>
+      <Login/>
     </ThemeProvider>
   );
 }
