@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import {
-  Button,
-  TextField,
   Typography,
   Container,
   Paper,
-  Tooltip,
   Stepper,
   Step,
-  StepLabel
+  StepLabel,
+  Button
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { HelpOutline } from '@material-ui/icons';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+import BasicInfo from './BasicInfo';
+import UserType from './UserType';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  submit: {
+  stepperButtons: {
     margin: theme.spacing(3, 0, 2),
+    width: '45%'
   },
   background: {
     backgroundColor: theme.palette.primary.main,
@@ -56,56 +54,55 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     width: "95%",
     paddingBottom: "0px"
+  },
+  buttonRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 }));
 
-// Should there be a maximum length on username/password?
-const validationSchema = yup.object({
-  username: yup
-    .string()
-    .ensure()
-    .required("Username is required")
-    .matches(/(^[a-zA-Z0-9]+$)/, 'Username may only contain letters and numbers'),
-  password: yup
-    .string()
-    .ensure()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 Characters")
-    .matches(/(^[a-zA-Z0-9!?;:@#$&()\\-`.+,/"]*$)/, 'Password may only contain letters, numbers, and special characters: !?;:@#$&()-`.+,'),
-  passwordAgain: yup
-    .string()
-    .ensure()
-    .required("Please confirm your passord")
-    .oneOf([yup.ref('password'), null], "Password do not match"),
-  email: yup
-    .string()
-    .ensure()
-    .email("Enter a valid email address")
-    .required("Email is required")
-});
+interface basicInfo {
+  username: string;
+  password: string;
+  passwordAgain: string;
+  email: string;
+}
 
 export default function SignUp() {
   const classes = useStyles();
-  const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-      passwordAgain: '',
-      email: ''
-    },
-    validationSchema: validationSchema,
-    // TODO: in the end will need to save a cookie or something for browser to remember the user
-    onSubmit: values => {
-      console.log("In formik submit");
-      console.log(values);
-    },
-  });
+  const [isHost, setIsHost] = useState(false);
+  const setIsHostInParent = (isNewHost: boolean) => {
+    setIsHost(isNewHost);
+  }
   const [activeStep, setActiveStep] = useState(0);
-  const steps: string[] = ["Basic info", "User type", "Payment info (Event Host only)"];
+  const steps: string[] = ["User type", "Basic Info", "Payment Info (Event Host only)", "Confirm Info"];
 
-  // TODO: would like to implement a stepper component at the top
-  // TODO: Need multiple components with transitions through the stepper
-  // TODO: or just conditionally show what i need with transitions in the middle
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  }
+
+  const [basicInfo, setBasicInfo] = useState({
+    username: '',
+    password: '',
+    passwordAgain: '',
+    email: ''
+  });
+  // Passed to the children to get necessary information
+  const setBasicInfoInParent = (basicInfo: basicInfo) => {
+    setBasicInfo(basicInfo);
+  }
+  const [disableNext, setDisableNext] = useState(true);
+  const setNext = (disabled: boolean) => {
+    setDisableNext(disabled);
+  }
+
+  // TODO: Complete the confirm info view
+  // TODO: skip payment info if not a host - if is host, just put a button on the page for now to move on
+  // TODO: confirm view should have back/create user button. then it should take them to Main or back to login?
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
@@ -120,96 +117,33 @@ export default function SignUp() {
               </Step>
             ))}
           </Stepper>
-          <div>
-            <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
-              <TextField
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.username && Boolean(formik.errors.username)}
-                helperText={formik.touched.email && formik.errors.username ? formik.errors.username : "Enter a username"}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-              />
-              <TextField
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.password && Boolean(formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password ? formik.errors.password : "Enter a password"}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-              />
-              <TextField
-                value={formik.values.passwordAgain}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.passwordAgain && Boolean(formik.errors.passwordAgain)}
-                helperText={formik.touched.passwordAgain && formik.errors.passwordAgain ? formik.errors.passwordAgain : "Re-enter password"}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="passwordAgain"
-                label="Confirm Password"
-                name="passwordAgain"
-                type="password"
-              />
-              <div className={classes.emailRow}>
-                <TextField
-                  className={classes.emailBox}
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email ? formik.errors.email : "Enter an email address"}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  name="email"
-                  label="Email"
-                  type="email"
-                  id="email"
-                  autoComplete="email"
-                />
-                <Tooltip
-                  className={classes.helpIcon}
-                  title={
-                    <React.Fragment>
-                      <Typography>This email is only for weekly event updates. We promise not to spam you!</Typography>
-                    </React.Fragment>
-                  }
-                  arrow
-                  disableFocusListener
-                  disableTouchListener
+          {activeStep === 0 &&
+            <UserType handleNext={handleNext} setIsHost={setIsHostInParent}></UserType>
+          }
+          {activeStep === 1 &&
+            <BasicInfo setNext={setNext} setBasicInfo={setBasicInfoInParent} handleNext={handleNext}>
+              <div className={classes.buttonRow}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.stepperButtons}
+                  type="submit"
+                  onClick={handleBack}
                 >
-                  <HelpOutline/>
-                </Tooltip>
+                  back
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.stepperButtons}
+                  type="submit"
+                  disabled={disableNext}
+                >
+                  Next
+                </Button>
               </div>
-              <Button
-                variant="contained"
-                fullWidth
-                color="primary"
-                className={classes.submit}
-                type="submit"
-                disabled={!(formik.dirty && formik.isValid)}
-              >
-                Next
-              </Button>
-            </form>
-          </div>
+            </BasicInfo>
+          }
         </Paper>
       </Container>
     </div>
