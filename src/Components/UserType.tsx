@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "48px",
   },
   title: {
-    paddingTop: "16px",
     paddingBottom: "16px"
   },
   subtitle: {
@@ -39,12 +38,10 @@ export default function UserType(props: props) {
   const onViewerClicked = () => {
     setIsHost(false);
     handleNext();
-    console.log("isHost set to false. this is a new viewer");
   }
   const onHostClicked = () => {
     setIsHost(true);
     handleNext();
-    console.log("isHost set to true. this is a new host");
   }
 
   return (

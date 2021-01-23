@@ -11,22 +11,21 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import BasicInfo from './BasicInfo';
 import UserType from './UserType';
-
+import PaymentInfo from './PaymentInfo';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: "16px"
+    padding: "16px",
+    height: '650px',
+    width: '552px',
+    overflowY: 'scroll'
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
   },
   stepperButtons: {
     margin: theme.spacing(3, 0, 2),
@@ -40,29 +39,19 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "100vh"
   },
-  emailRow: {
-    display: "flex",
-    alignItems: "center",
-  },
-  emailBox: {
-    flexGrow: 9
-  },
-  helpIcon: {
-    flexGrow: 1,
-    paddingBottom: "16px"
-  },
   stepper: {
     width: "95%",
-    paddingBottom: "0px"
+    paddingBottom: "16px"
   },
   buttonRow: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+    width: '100%'
+  },
 }));
 
-interface basicInfo {
+interface BasicInfo {
   username: string;
   password: string;
   passwordAgain: string;
@@ -76,7 +65,7 @@ export default function SignUp() {
     setIsHost(isNewHost);
   }
   const [activeStep, setActiveStep] = useState(0);
-  const steps: string[] = ["User type", "Basic Info", "Payment Info (Event Host only)", "Confirm Info"];
+  const steps: string[] = ["User Type", "Basic Info", "Payment Info (Host only)"];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -92,7 +81,7 @@ export default function SignUp() {
     email: ''
   });
   // Passed to the children to get necessary information
-  const setBasicInfoInParent = (basicInfo: basicInfo) => {
+  const setBasicInfoInParent = (basicInfo: BasicInfo) => {
     setBasicInfo(basicInfo);
   }
   const [disableNext, setDisableNext] = useState(true);
@@ -100,9 +89,43 @@ export default function SignUp() {
     setDisableNext(disabled);
   }
 
-  // TODO: Complete the confirm info view
-  // TODO: skip payment info if not a host - if is host, just put a button on the page for now to move on
-  // TODO: confirm view should have back/create user button. then it should take them to Main or back to login?
+  const onCreate = () => {
+    // TODO: will send an API call to create a user
+  }
+
+  let basicInfoButton;
+  if (isHost) {
+    basicInfoButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.stepperButtons}
+        type="submit"
+        disabled={disableNext}
+      >
+        Next
+      </Button>
+    )
+  } else {
+    basicInfoButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.stepperButtons}
+        type="submit"
+        disabled={disableNext}
+      >
+        Create Viewer
+      </Button>
+    )
+  }
+
+  const createUser = () => {
+    // TODO: send an API call to post a new user to the DB
+    console.log("Basic Info: " + JSON.stringify(basicInfo));
+    console.log("Payment Info: Nothing yet!");
+  }
+
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
@@ -121,13 +144,34 @@ export default function SignUp() {
             <UserType handleNext={handleNext} setIsHost={setIsHostInParent}></UserType>
           }
           {activeStep === 1 &&
-            <BasicInfo setNext={setNext} setBasicInfo={setBasicInfoInParent} handleNext={handleNext}>
+            <BasicInfo
+              setNext={setNext}
+              setBasicInfo={setBasicInfoInParent}
+              handleNext={handleNext}
+              basicInfo={basicInfo}
+              isHost={isHost}
+              createUser={createUser}
+            >
               <div className={classes.buttonRow}>
                 <Button
                   variant="contained"
                   color="primary"
                   className={classes.stepperButtons}
-                  type="submit"
+                  onClick={handleBack}
+                >
+                  back
+                </Button>
+                {basicInfoButton}
+              </div>
+            </BasicInfo>
+          }
+          {activeStep === 2 &&
+            <PaymentInfo>
+              <div className={classes.buttonRow}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.stepperButtons}
                   onClick={handleBack}
                 >
                   back
@@ -137,12 +181,12 @@ export default function SignUp() {
                   color="primary"
                   className={classes.stepperButtons}
                   type="submit"
-                  disabled={disableNext}
+                  onClick={createUser}
                 >
-                  Next
+                  Create Host
                 </Button>
               </div>
-            </BasicInfo>
+            </PaymentInfo>
           }
         </Paper>
       </Container>

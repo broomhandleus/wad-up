@@ -12,7 +12,6 @@ import * as yup from 'yup';
 const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
   },
   emailRow: {
     display: "flex",
@@ -25,15 +24,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     paddingBottom: "16px"
   },
-  stepperButtons: {
-    margin: theme.spacing(3, 0, 2),
-    width: '45%'
-  },
-  buttonRow: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  }
 }));
 
 // Should there be a maximum length on username/password?
@@ -61,11 +51,20 @@ const validationSchema = yup.object({
     .required("Email is required")
 });
 
+interface BasicInfo {
+  username: string;
+  password: string;
+  passwordAgain: string;
+  email: string
+}
 interface props {
   children: React.ReactNode,
   setNext: Function,
   setBasicInfo: Function,
   handleNext: Function
+  basicInfo: BasicInfo,
+  isHost: boolean,
+  createUser: Function
 }
 
 export default function BasicInfo(props: props) {
@@ -73,20 +72,27 @@ export default function BasicInfo(props: props) {
   const setNext = props.setNext;
   const setBasicInfo = props.setBasicInfo;
   const handleNext = props.handleNext;
+  const basicInfo = props.basicInfo;
+  const isHost = props.isHost;
+  const createUser = props.createUser;
+
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
-      passwordAgain: '',
-      email: ''
+      username: basicInfo.username,
+      password: basicInfo.password,
+      passwordAgain: basicInfo.passwordAgain,
+      email: basicInfo.email
     },
     validationSchema: validationSchema,
     // TODO: in the end will need to save a cookie or something for browser to remember the user
     onSubmit: values => {
       console.log("In formik submit");
-      console.log(values);
       setBasicInfo(values);
-      handleNext();
+      if (isHost) {
+        handleNext();
+      } else {
+        createUser();
+      }
     },
   });
 
@@ -94,6 +100,7 @@ export default function BasicInfo(props: props) {
     setNext(!(formik.dirty && formik.isValid));
   }
 
+  // TODO: pressing enter refreshes the page. need to prevent default somewhere
   return (
     <div>
       <form className={classes.form} noValidate onSubmit={formik.handleSubmit} onChange={handleChange}>
