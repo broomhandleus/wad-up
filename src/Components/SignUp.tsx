@@ -1,137 +1,195 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react';
+import {
+  Typography,
+  Container,
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Button
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import BasicInfo from './BasicInfo';
+import UserType from './UserType';
+import PaymentInfo from './PaymentInfo';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    padding: "16px",
+    height: '650px',
+    width: '552px',
+    overflowY: 'scroll'
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
+  stepperButtons: {
     margin: theme.spacing(3, 0, 2),
+    width: '45%'
+  },
+  background: {
+    backgroundColor: theme.palette.primary.main,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh"
+  },
+  stepper: {
+    width: "95%",
+    paddingBottom: "16px"
+  },
+  buttonRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%'
   },
 }));
 
+interface BasicInfo {
+  username: string;
+  password: string;
+  passwordAgain: string;
+  email: string;
+}
+
 export default function SignUp() {
   const classes = useStyles();
+  const [isHost, setIsHost] = useState(false);
+  const setIsHostInParent = (isNewHost: boolean) => {
+    setIsHost(isNewHost);
+  }
+  const [activeStep, setActiveStep] = useState(0);
+  const steps: string[] = ["User Type", "Basic Info", "Payment Info (Host only)"];
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  }
+
+  const [basicInfo, setBasicInfo] = useState({
+    username: '',
+    password: '',
+    passwordAgain: '',
+    email: ''
+  });
+  // Passed to the children to get necessary information
+  const setBasicInfoInParent = (basicInfo: BasicInfo) => {
+    setBasicInfo(basicInfo);
+  }
+  const [disableNext, setDisableNext] = useState(true);
+  const setNext = (disabled: boolean) => {
+    setDisableNext(disabled);
+  }
+
+  const onCreate = () => {
+    // TODO: will send an API call to create a user
+  }
+
+  let basicInfoButton;
+  if (isHost) {
+    basicInfoButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.stepperButtons}
+        type="submit"
+        disabled={disableNext}
+      >
+        Next
+      </Button>
+    )
+  } else {
+    basicInfoButton = (
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.stepperButtons}
+        type="submit"
+        disabled={disableNext}
+      >
+        Create Viewer
+      </Button>
+    )
+  }
+
+  const createUser = () => {
+    // TODO: send an API call to post a new user to the DB
+    console.log("Basic Info: " + JSON.stringify(basicInfo));
+    console.log("Payment Info: Nothing yet!");
+  }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+    <div className={classes.background}>
+      <Container component="main" maxWidth="sm">
+        <Paper className={classes.paper} elevation={8}>
+          <Typography component="h1" variant="h5">
             Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+          </Typography>
+          <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label} >
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          {activeStep === 0 &&
+            <UserType handleNext={handleNext} setIsHost={setIsHostInParent}></UserType>
+          }
+          {activeStep === 1 &&
+            <BasicInfo
+              setNext={setNext}
+              setBasicInfo={setBasicInfoInParent}
+              handleNext={handleNext}
+              basicInfo={basicInfo}
+              isHost={isHost}
+              createUser={createUser}
+            >
+              <div className={classes.buttonRow}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.stepperButtons}
+                  onClick={handleBack}
+                >
+                  back
+                </Button>
+                {basicInfoButton}
+              </div>
+            </BasicInfo>
+          }
+          {activeStep === 2 &&
+            <PaymentInfo>
+              <div className={classes.buttonRow}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.stepperButtons}
+                  onClick={handleBack}
+                >
+                  back
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.stepperButtons}
+                  type="submit"
+                  onClick={createUser}
+                >
+                  Create Host
+                </Button>
+              </div>
+            </PaymentInfo>
+          }
+        </Paper>
+      </Container>
+    </div>
   );
 }

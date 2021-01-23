@@ -19,13 +19,15 @@
     "clsx": "^1.1.1",
     "faker": "^5.1.0",
     "fontsource-roboto": "^3.0.3",
+    "formik": "^2.2.6",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.20",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-leaflet": "^3.0.5",
     "react-scripts": "3.4.3",
-    "typescript": "^3.8"
+    "typescript": "^3.8",
+    "yup": "^0.32.8"
   },
   "scripts": {
     "start": "react-scripts start",
