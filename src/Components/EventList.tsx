@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   justifyCenter: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   list: {
     overflowY: "scroll",

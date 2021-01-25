@@ -47,6 +47,7 @@ export default function MapView(props: props) {
       className={classes.mapView}
       center={center}
       zoom={zoomLevel}
+      id="MapContainer"
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

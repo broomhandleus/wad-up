@@ -32,36 +32,25 @@ export default function Main() {
     currentEventNum: 5,
     currentEventPage: 1,
     totalEventPages: 2,
-    currentCategories: ["Sporting", "Comedy", "Music", "Other"]
+    currentCategories: ["Sporting", "Comedy", "Music", "Other"],
   })
 
   // method used to update overall state of the map and list
   const getEvents = (bounds?: LatLngBounds, eventNum?: number, eventPage?: number, categories?: string[]) => {
     console.log("Running Get Events!");
     let newEvents: event[] = [];
+    // Uses either the updated categories/bounds or current ones depending in a new one is provided
     const newCategories = categories ? categories : eventMapState.currentCategories;
-    // Uses either the updated bounds from MapDetails or the current bounds if none are provided
-    if (bounds) {
-      events.forEach((e) => {
-        if (e.location.latitude > bounds.getSouthWest().lat
-            && e.location.latitude < bounds.getNorthEast().lat
-            && e.location.longitude > bounds.getSouthWest().lng
-            && e.location.longitude < bounds.getNorthEast().lng
-            && newCategories.includes(e.category)) {
-          newEvents.push(e);
-        }
-      });
-    } else {
-      events.forEach((e) => {
-        if (e.location.latitude > eventMapState.currentMapBounds.getSouthWest().lat
-            && e.location.latitude < eventMapState.currentMapBounds.getNorthEast().lat
-            && e.location.longitude > eventMapState.currentMapBounds.getSouthWest().lng
-            && e.location.longitude < eventMapState.currentMapBounds.getNorthEast().lng
-            && newCategories.includes(e.category)) {
-          newEvents.push(e);
-        }
-      });
-    }
+    const newBounds = bounds ? bounds : eventMapState.currentMapBounds;
+    events.forEach((e) => {
+      if (e.location.latitude > newBounds.getSouthWest().lat
+          && e.location.latitude < newBounds.getNorthEast().lat
+          && e.location.longitude > newBounds.getSouthWest().lng
+          && e.location.longitude < newBounds.getNorthEast().lng
+          && newCategories.includes(e.category)) {
+        newEvents.push(e);
+      }
+    });
 
     // Uses given parameters to calculate number of pages possible and the current page to show
     const newEventNum = eventNum ? eventNum : eventMapState.currentEventNum;
@@ -72,13 +61,13 @@ export default function Main() {
 
     // Updates the state correctly based on which values are passed in
     setEventMapState({
-      currentMapBounds: bounds ? bounds : eventMapState.currentMapBounds,
+      currentMapBounds: newBounds,
       currentEvents: newEvents.slice(indexStart, indexEnd),
       currentEventNum: newEventNum,
       currentEventPage: newEventPage,
       totalEventPages: newTotalEventPages,
       currentCategories: newCategories
-    })
+    });
   }
 
   return (
