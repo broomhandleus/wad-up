@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
 import { Layer, LeafletMouseEventHandlerFn } from 'leaflet';
 import { Feature, Geometry } from 'geojson';
@@ -18,15 +18,12 @@ export default function MapDetails(props: props) {
   const map = useMap();
 
   // Send new bounds to get new events whenever the map is moved
-  const moveMethod = () => {
-    console.log("In moveend listener");
-    console.log(map);
-    getEvents(map.getBounds());
-  } // TODO: Gotta keep banging away at this! keep learning about the events
-  console.log(map.listens('moveend'))
-  map.off('moveend', moveMethod);
-  console.log(map.listens('moveend'))
-  map.once('moveend', moveMethod);
+  useEffect(() => {
+    map.on('moveend', () => {
+      getEvents(map.getBounds());
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Adds the ability to zoom to each state area when clicked
   const zoomToFeature: LeafletMouseEventHandlerFn = (e) => {
