@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
 import { Layer, LeafletMouseEventHandlerFn } from 'leaflet';
 import { Feature, Geometry } from 'geojson';
-import { debounce } from 'lodash';
-
 
 // need to define an interface for the props if we use it
 interface props {
@@ -20,9 +18,12 @@ export default function MapDetails(props: props) {
   const map = useMap();
 
   // Send new bounds to get new events whenever the map is moved
-  map.once('moveend', debounce(() => {
-    getEvents(map.getBounds())
-  }, 2000, { 'leading': true, 'trailing': false }));
+  useEffect(() => {
+    map.on('moveend', () => {
+      getEvents(map.getBounds());
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Adds the ability to zoom to each state area when clicked
   const zoomToFeature: LeafletMouseEventHandlerFn = (e) => {

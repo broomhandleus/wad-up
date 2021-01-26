@@ -18,19 +18,19 @@ import Pagination from '@material-ui/lab/Pagination';
 const useStyles = makeStyles((theme) => ({
   listView: {
     width: "100%",
-    height: "calc(100vh - 64px)",
+    height: "calc(100vh - 64px)", // whole height minus the app bar
     display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   justifyCenter: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   list: {
     overflowY: "scroll",
-    padding: "0px 8px"
+    padding: "0px 8px",
+    height: "calc(100vh - 224px)" // whole height minus appbar and header/footer
   },
   headerFooter: {
     display: "flex",
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   categorySelect: {
     width: "75%"
-  }
+  },
 }));
 
 const categoryOptions = [
@@ -84,7 +84,8 @@ export default function EventList(props: props) {
     );
   }
 
-  const onEventNumChange = (event: any) => {
+  // TODO changing any of these values causes a new buildiup of events. WHY??
+  const onEventNumChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     getEvents(undefined, event.target.value);
   }
   const onChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -93,6 +94,8 @@ export default function EventList(props: props) {
   const onCategoryChanged = (event: React.ChangeEvent<{ value: unknown }>) => {
     getEvents(undefined, undefined, undefined, event.target.value);
   }
+
+  // TODO: maybe a patterned background on the List view so when there are less, you see a design, not white space
 
   return (
     <div className={classes.listView}>
