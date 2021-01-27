@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Typography,
   Container,
@@ -60,6 +61,7 @@ interface BasicInfo {
 
 export default function SignUp() {
   const classes = useStyles();
+  const history = useHistory();
   const [isHost, setIsHost] = useState(false);
   const setIsHostInParent = (isNewHost: boolean) => {
     setIsHost(isNewHost);
@@ -87,10 +89,6 @@ export default function SignUp() {
   const [disableNext, setDisableNext] = useState(true);
   const setNext = (disabled: boolean) => {
     setDisableNext(disabled);
-  }
-
-  const onCreate = () => {
-    // TODO: will send an API call to create a user
   }
 
   let basicInfoButton;
@@ -124,6 +122,8 @@ export default function SignUp() {
     // TODO: send an API call to post a new user to the DB
     console.log("Basic Info: " + JSON.stringify(basicInfo));
     console.log("Payment Info: Nothing yet!");
+    // If API call successful, then go to page.
+    history.push("/Main");
   }
 
   return (
