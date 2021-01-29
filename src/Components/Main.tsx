@@ -6,6 +6,7 @@ import {
 import EventList from './EventList';
 import MapView from './MapView';
 import CustomToolbar from './CustomToolbar';
+import Fade from '@material-ui/core/Fade';
 
 // Mock data imports
 import { events } from '../mockData/event';
@@ -71,26 +72,28 @@ export default function Main() {
   }
 
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <CustomToolbar/>
+    <Fade in timeout={750}>
+      <Grid container>
+        <Grid item xs={12}>
+          <CustomToolbar/>
+        </Grid>
+        <Grid item xs={9}>
+          <MapView
+            events={eventMapState.currentEvents}
+            getEvents={getEvents}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <EventList
+            events={eventMapState.currentEvents}
+            eventNum={eventMapState.currentEventNum}
+            eventPage={eventMapState.currentEventPage}
+            totalEventPages={eventMapState.totalEventPages}
+            categories={eventMapState.currentCategories}
+            getEvents={getEvents}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={9}>
-        <MapView
-          events={eventMapState.currentEvents}
-          getEvents={getEvents}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <EventList
-          events={eventMapState.currentEvents}
-          eventNum={eventMapState.currentEventNum}
-          eventPage={eventMapState.currentEventPage}
-          totalEventPages={eventMapState.totalEventPages}
-          categories={eventMapState.currentCategories}
-          getEvents={getEvents}
-        />
-      </Grid>
-    </Grid>
+    </Fade>
   );
 }

@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -71,45 +72,47 @@ export default function ForgotPassword() {
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={8}>
-          <Avatar className={classes.avatar}>
-            <ContactSupportIcon fontSize="large"/>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Forgot Password
-          </Typography>
-          <Typography component="h1" variant="subtitle1">
-            Provide your email and we will send you a recovery link!
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={formik.handleSubmit} onChange={handleChange}>
-            <TextField
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email ? formik.errors.email : "Enter an email address"}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              disabled={sendDisabled}
-            >
-              Send email
-            </Button>
-          </form>
-        </Paper>
+        <Slide in direction="left" mountOnEnter unmountOnExit>
+          <Paper className={classes.paper} elevation={8}>
+            <Avatar className={classes.avatar}>
+              <ContactSupportIcon fontSize="large"/>
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Forgot Password
+            </Typography>
+            <Typography component="h1" variant="subtitle1">
+              Provide your email and we will send you a recovery link!
+            </Typography>
+            <form className={classes.form} noValidate onSubmit={formik.handleSubmit} onChange={handleChange}>
+              <TextField
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email ? formik.errors.email : "Enter an email address"}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                disabled={sendDisabled}
+              >
+                Send email
+              </Button>
+            </form>
+          </Paper>
+        </Slide>
       </Container>
     </div>
   );

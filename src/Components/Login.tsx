@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Slide from '@material-ui/core/Slide';
 
 import { users } from '../mockData/user';
 
@@ -76,71 +77,72 @@ export default function Login() {
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={8}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in
-          </Typography>
-          {incorrectText}
-          <form className={classes.form} noValidate onSubmit={onSubmit}>
-            <TextField
-              value={username}
-              onChange={(e) => { setUsername(e.target.value)}}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              value={password}
-              onChange={(e) => { setPassword(e.target.value)}}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={remember}
-                color="secondary"
-                onChange={(e) => setRemember(!remember)}
-              />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link component={RouterLink} to="/Forgot" variant="body2" color="secondary">
-                  Forgot password?
-                </Link>
+        <Slide in direction="left" mountOnEnter unmountOnExit>
+          <Paper className={classes.paper} elevation={8}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Log in
+            </Typography>
+            {incorrectText}
+            <form className={classes.form} noValidate onSubmit={onSubmit}>
+              <TextField
+                value={username}
+                onChange={(e) => { setUsername(e.target.value)}}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+              />
+              <TextField
+                value={password}
+                onChange={(e) => { setPassword(e.target.value)}}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox checked={remember}
+                  color="secondary"
+                  onChange={(e) => setRemember(!remember)}
+                />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link component={RouterLink} to="/Forgot" variant="body2" color="secondary">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link component={RouterLink} to="/Signup" variant="body2" color="secondary">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link component={RouterLink} to="/Signup" variant="body2" color="secondary">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </Paper>
+            </form>
+          </Paper>
+        </Slide>
       </Container>
     </div>
   );

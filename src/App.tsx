@@ -58,7 +58,6 @@ function App() {
           <ForgotPassword/>
         </Route>
       </Switch>
-      <Main/>
     </ThemeProvider>
   );
 }
