@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Slide from '@material-ui/core/Slide';
+
+import { users } from '../mockData/user';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,84 +46,103 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const [incorrect, setIncorrect] = useState(false);
 
   // TODO: in the end will need to save a cookie or something for browser to remember the user
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form has been submitted!");
-    console.log(username, password, remember);
+    // Doing fake checking here, will be an API call later
+    users.forEach((u) => {
+      if (username === u.username && password === u.password) {
+        history.push("/Main");
+        // need to break? or will moving the page be enough to stop this process?
+      }
+    });
+    setIncorrect(true);
+  }
+
+  let incorrectText;
+  if (incorrect) {
+    incorrectText = (
+      <Typography component="h1" variant="subtitle1" color="error">
+        Username or password incorrect. No, I won't tell you which one.
+      </Typography>
+    )
   }
 
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={8}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log in
-          </Typography>
-          <form className={classes.form} noValidate onSubmit={onSubmit}>
-            <TextField
-              value={username}
-              onChange={(e) => { setUsername(e.target.value)}}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              value={password}
-              onChange={(e) => { setPassword(e.target.value)}}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={remember}
-                color="secondary"
-                onChange={(e) => setRemember(!remember)}
-              />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2" color="secondary">
-                  Forgot password?
-                </Link>
+        <Slide in direction="left" mountOnEnter unmountOnExit>
+          <Paper className={classes.paper} elevation={8}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Log in
+            </Typography>
+            {incorrectText}
+            <form className={classes.form} noValidate onSubmit={onSubmit}>
+              <TextField
+                value={username}
+                onChange={(e) => { setUsername(e.target.value)}}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+              />
+              <TextField
+                value={password}
+                onChange={(e) => { setPassword(e.target.value)}}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox checked={remember}
+                  color="secondary"
+                  onChange={(e) => setRemember(!remember)}
+                />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link component={RouterLink} to="/Forgot" variant="body2" color="secondary">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link component={RouterLink} to="/Signup" variant="body2" color="secondary">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2" color="secondary">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </Paper>
+            </form>
+          </Paper>
+        </Slide>
       </Container>
     </div>
   );

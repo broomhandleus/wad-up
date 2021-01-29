@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,49 +38,52 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
+  const history = useHistory();
 
   const onLoginClicked = () => {
-    console.log("Login Clicked");
+    history.push("/Login");
   }
 
   const onSignUpClicked = () => {
-    console.log("Sign Up Clicked");
+    history.push("/Signup");
   }
 
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={8}>
-          <Typography component="h1" variant="h5">
-            Welcome to Wadup!
-          </Typography>
-          <Typography component="h1" variant="subtitle1">
-            The easy way to find out what's up in your area.
-          </Typography>
-          <Typography component="h1" variant="subtitle1">
-            -- Need some fun icon and background pattern here --
-          </Typography>
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            color="primary"
-            onClick={onLoginClicked}
-            className={classes.login}
+        <Fade in timeout={750}>
+          <Paper className={classes.paper} elevation={8}>
+            <Typography component="h1" variant="h5">
+              Welcome to Wadup!
+            </Typography>
+            <Typography component="h1" variant="subtitle1">
+              The easy way to find out what's up in your area.
+            </Typography>
+            <Typography component="h1" variant="subtitle1">
+              -- Need some fun icon and background pattern here --
+            </Typography>
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              color="primary"
+              onClick={onLoginClicked}
+              className={classes.login}
+              >
+              Log In
+            </Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={onSignUpClicked}
+              className={classes.signup}
             >
-            Log In
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={onSignUpClicked}
-            className={classes.signup}
-          >
-            Sign Up
-          </Button>
-        </Paper>
+              Sign Up
+            </Button>
+          </Paper>
+        </Fade>
       </Container>
     </div>
   );

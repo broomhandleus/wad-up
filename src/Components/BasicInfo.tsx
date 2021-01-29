@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { HelpOutline } from '@material-ui/icons';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -102,86 +103,88 @@ export default function BasicInfo(props: props) {
 
   // TODO: pressing enter refreshes the page. need to prevent default somewhere
   return (
-    <div>
-      <form className={classes.form} noValidate onSubmit={formik.handleSubmit} onChange={handleChange}>
-        <TextField
-          value={formik.values.username}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.username && Boolean(formik.errors.username)}
-          helperText={formik.touched.username && formik.errors.username ? formik.errors.username : "Enter a username"}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="username"
-          label="Username"
-          name="username"
-          autoComplete="username"
-        />
-        <TextField
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password ? formik.errors.password : "Enter a password"}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-        />
-        <TextField
-          value={formik.values.passwordAgain}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.passwordAgain && Boolean(formik.errors.passwordAgain)}
-          helperText={formik.touched.passwordAgain && formik.errors.passwordAgain ? formik.errors.passwordAgain : "Re-enter password"}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="passwordAgain"
-          label="Confirm Password"
-          name="passwordAgain"
-          type="password"
-        />
-        <div className={classes.emailRow}>
+    <Slide in direction="left" mountOnEnter unmountOnExit>
+      <div>
+        <form className={classes.form} noValidate onSubmit={formik.handleSubmit} onChange={handleChange}>
           <TextField
-            className={classes.emailBox}
-            value={formik.values.email}
+            value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email ? formik.errors.email : "Enter an email address"}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username ? formik.errors.username : "Enter a username"}
             variant="outlined"
             margin="normal"
             required
-            name="email"
-            label="Email"
-            type="email"
-            id="email"
-            autoComplete="email"
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
           />
-          <Tooltip
-            className={classes.helpIcon}
-            title={
-              <React.Fragment>
-                <Typography>This email is only for weekly event updates. We promise not to spam you!</Typography>
-              </React.Fragment>
-            }
-            arrow
-            disableFocusListener
-            disableTouchListener
-          >
-            <HelpOutline/>
-          </Tooltip>
-        </div>
-        {props.children}
-      </form>
-    </div>
+          <TextField
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password ? formik.errors.password : "Enter a password"}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+          />
+          <TextField
+            value={formik.values.passwordAgain}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.passwordAgain && Boolean(formik.errors.passwordAgain)}
+            helperText={formik.touched.passwordAgain && formik.errors.passwordAgain ? formik.errors.passwordAgain : "Re-enter password"}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="passwordAgain"
+            label="Confirm Password"
+            name="passwordAgain"
+            type="password"
+          />
+          <div className={classes.emailRow}>
+            <TextField
+              className={classes.emailBox}
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email ? formik.errors.email : "Enter an email address"}
+              variant="outlined"
+              margin="normal"
+              required
+              name="email"
+              label="Email"
+              type="email"
+              id="email"
+              autoComplete="email"
+            />
+            <Tooltip
+              className={classes.helpIcon}
+              title={
+                <React.Fragment>
+                  <Typography>This email is only for weekly event updates. We promise not to spam you!</Typography>
+                </React.Fragment>
+              }
+              arrow
+              disableFocusListener
+              disableTouchListener
+            >
+              <HelpOutline/>
+            </Tooltip>
+          </div>
+          {props.children}
+        </form>
+      </div>
+    </Slide>
   );
 }

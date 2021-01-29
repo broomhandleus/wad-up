@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Typography,
   Container,
@@ -12,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import BasicInfo from './BasicInfo';
 import UserType from './UserType';
 import PaymentInfo from './PaymentInfo';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -60,6 +62,7 @@ interface BasicInfo {
 
 export default function SignUp() {
   const classes = useStyles();
+  const history = useHistory();
   const [isHost, setIsHost] = useState(false);
   const setIsHostInParent = (isNewHost: boolean) => {
     setIsHost(isNewHost);
@@ -87,10 +90,6 @@ export default function SignUp() {
   const [disableNext, setDisableNext] = useState(true);
   const setNext = (disabled: boolean) => {
     setDisableNext(disabled);
-  }
-
-  const onCreate = () => {
-    // TODO: will send an API call to create a user
   }
 
   let basicInfoButton;
@@ -124,71 +123,75 @@ export default function SignUp() {
     // TODO: send an API call to post a new user to the DB
     console.log("Basic Info: " + JSON.stringify(basicInfo));
     console.log("Payment Info: Nothing yet!");
+    // If API call successful, then go to page.
+    history.push("/Main");
   }
 
   return (
     <div className={classes.background}>
       <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={8}>
-          <Typography component="h1" variant="h5">
-            Sign Up
-          </Typography>
-          <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label} >
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          {activeStep === 0 &&
-            <UserType handleNext={handleNext} setIsHost={setIsHostInParent}></UserType>
-          }
-          {activeStep === 1 &&
-            <BasicInfo
-              setNext={setNext}
-              setBasicInfo={setBasicInfoInParent}
-              handleNext={handleNext}
-              basicInfo={basicInfo}
-              isHost={isHost}
-              createUser={createUser}
-            >
-              <div className={classes.buttonRow}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.stepperButtons}
-                  onClick={handleBack}
-                >
-                  back
-                </Button>
-                {basicInfoButton}
-              </div>
-            </BasicInfo>
-          }
-          {activeStep === 2 &&
-            <PaymentInfo>
-              <div className={classes.buttonRow}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.stepperButtons}
-                  onClick={handleBack}
-                >
-                  back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.stepperButtons}
-                  type="submit"
-                  onClick={createUser}
-                >
-                  Create Host
-                </Button>
-              </div>
-            </PaymentInfo>
-          }
-        </Paper>
+        <Slide in direction="left" mountOnEnter unmountOnExit>
+          <Paper className={classes.paper} elevation={8}>
+            <Typography component="h1" variant="h5">
+              Sign Up
+            </Typography>
+            <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
+              {steps.map((label) => (
+                <Step key={label} >
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            {activeStep === 0 &&
+              <UserType handleNext={handleNext} setIsHost={setIsHostInParent}></UserType>
+            }
+            {activeStep === 1 &&
+              <BasicInfo
+                setNext={setNext}
+                setBasicInfo={setBasicInfoInParent}
+                handleNext={handleNext}
+                basicInfo={basicInfo}
+                isHost={isHost}
+                createUser={createUser}
+              >
+                <div className={classes.buttonRow}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.stepperButtons}
+                    onClick={handleBack}
+                  >
+                    back
+                  </Button>
+                  {basicInfoButton}
+                </div>
+              </BasicInfo>
+            }
+            {activeStep === 2 &&
+              <PaymentInfo>
+                <div className={classes.buttonRow}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.stepperButtons}
+                    onClick={handleBack}
+                  >
+                    back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.stepperButtons}
+                    type="submit"
+                    onClick={createUser}
+                  >
+                    Create Host
+                  </Button>
+                </div>
+              </PaymentInfo>
+            }
+          </Paper>
+        </Slide>
       </Container>
     </div>
   );
