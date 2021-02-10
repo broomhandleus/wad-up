@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 
-import { users } from '../mockData/user';
+import { users } from '../../mockData/user';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

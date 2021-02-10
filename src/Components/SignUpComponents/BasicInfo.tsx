@@ -43,8 +43,8 @@ const validationSchema = yup.object({
   passwordAgain: yup
     .string()
     .ensure()
-    .required("Please confirm your passord")
-    .oneOf([yup.ref('password'), null], "Password do not match"),
+    .required("Please confirm your password")
+    .oneOf([yup.ref('password'), null], "Passwords do not match"),
   email: yup
     .string()
     .ensure()

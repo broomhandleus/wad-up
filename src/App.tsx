@@ -7,9 +7,9 @@ import './App.css';
 import 'fontsource-roboto';
 import Main from './Components/Main';
 import Home from './Components/Home';
-import Login from './Components/Login';
-import SignUp from './Components/SignUp';
-import ForgotPassword from './Components/ForgotPassword';
+import Login from './Components/LoginComponents/Login';
+import SignUp from './Components/SignUpComponents/SignUp';
+import ForgotPassword from './Components/LoginComponents/ForgotPassword';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core';
 

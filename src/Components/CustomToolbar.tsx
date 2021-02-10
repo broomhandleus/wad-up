@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -9,6 +9,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuDialog from './MenuDialogComponents/MenuDialog';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -23,8 +24,9 @@ const useStyles = makeStyles((theme) => ({
 // TODO: will probably need to pass some user data in the future
 export default function CustomToolbar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openMenu = Boolean(anchorEl);
+  const [menuItem, setMenuItem] = useState<null | string>("");
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,7 +34,15 @@ export default function CustomToolbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleClick = (event: React.MouseEvent<HTMLLIElement>) => {
+    setAnchorEl(null);
+    setMenuItem(event.currentTarget.textContent);
+  };
+  const childSetMenuItem = (menuItem: string) => {
+    setMenuItem(menuItem);
+  }
 
+  // TODO: Conditionally show the "Create Event" options based on use isHost
   return (
     <AppBar position="static">
       <Toolbar className={classes.toolbar}>
@@ -61,13 +71,14 @@ export default function CustomToolbar() {
               vertical: 'top',
               horizontal: 'right',
             }}
-            open={open}
+            open={openMenu}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClick}>Profile</MenuItem>
           </Menu>
         </div>
       </Toolbar>
+      <MenuDialog menuItem={menuItem} setMenuItem={childSetMenuItem}/>
     </AppBar>
   );
 }
