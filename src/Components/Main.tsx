@@ -4,7 +4,7 @@ import {
   Grid,
 } from '@material-ui/core';
 import EventList from './EventList';
-import MapView from './MapView';
+import MapView from './MapComponents/MapView';
 import CustomToolbar from './CustomToolbar';
 import Fade from '@material-ui/core/Fade';
 
