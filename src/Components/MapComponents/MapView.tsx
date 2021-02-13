@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { event } from '../types';
+import { event } from '../../types';
 import MapDetails from './MapDetails';
+import MapActions from './MapActions';
 
-const state_outlines = require("../mapData/state_outlines");
+const state_outlines = require("../../mapData/state_outlines");
 
 const useStyles = makeStyles((theme) => ({
-  // Calculated height with padding/height of the toolbar in mind. Probably will change later
+  // Calculated height with padding/height of the toolbar in mind.
   mapView: {
-    height: "calc(100vh - 72px)"
+    height: "calc(100vh - 64px)",
+    display: "flex"
   },
   states: {
     fillColor: "green"
+  },
+  speedDial: {
+    position: "absolute",
+    alignSelf: "flex-end",
+    marginLeft: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   }
 }));
 
@@ -58,6 +66,7 @@ export default function MapView(props: props) {
         eventMarkers={eventMarkers}
         getEvents={getEvents}
       />
+      <MapActions/>
     </MapContainer>
   );
 }
