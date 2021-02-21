@@ -5,7 +5,8 @@ export const events: event[] = [
       _id: "100",
       name: "Family Comedy",
       description: "A night of fun and laughs for everyone",
-      datetime: "January 1, 2022 7 pm", // Once again need to worry about how this will be formatted
+      date: "January 1, 2022", // Once again need to worry about how this will be formatted
+      time: "7 pm",
       locationName: "The Laugh Factory",
       location: {
           latitude: 33.7490, // numerical latlong seems to be the way to go for the Leaftlet map
@@ -22,7 +23,8 @@ export const events: event[] = [
       _id: "101",
       name: "Sportsball",
       description: "Watching the pros do the sports",
-      datetime: "January 2, 2022 1 pm", // Once again need to worry about how this will be formatted
+      date: "January 2, 2022", // Once again need to worry about how this will be formatted
+      time: "1 pm",
       locationName: "The Stadium",
       location: {
           latitude: 29.7604,
@@ -39,7 +41,8 @@ export const events: event[] = [
       _id: "102",
       name: "Music Show",
       description: "Loud Music and fun",
-      datetime: "January 3, 2022 8 pm", // Once again need to worry about how this will be formatted
+      date: "January 3, 2022", // Once again need to worry about how this will be formatted
+      time: "8 pm",
       locationName: "The Stage",
       location: {
           latitude: 34.0522,
@@ -56,7 +59,8 @@ export const events: event[] = [
       _id: "103",
       name: "Kids Event",
       description: "Kids playing on a playground",
-      datetime: "January 4, 2022 12 pm", // Once again need to worry about how this will be formatted
+      date: "January 4, 2022", // Once again need to worry about how this will be formatted
+      time: "12 pm",
       locationName: "The Playground",
       location: {
           latitude: 41.8781,
@@ -73,7 +77,8 @@ export const events: event[] = [
       _id: "104",
       name: "Adult Event",
       description: "Hanging out at a bar and having some drinks",
-      datetime: "January 5, 2022 12 pm", // Once again need to worry about how this will be formatted
+      date: "January 5, 2022", // Once again need to worry about how this will be formatted
+      time: "12 pm",
       locationName: "The Bar",
       location: {
           latitude: 40.7128,
@@ -90,7 +95,8 @@ export const events: event[] = [
     _id: "105",
     name: "Sand Gnats Game",
     description: "Minor league baseball",
-    datetime: "January 6, 2022 7 pm", // Once again need to worry about how this will be formatted
+    date: "January 6, 2022 7 pm", // Once again need to worry about how this will be formatted
+    time: "7 pm",
     locationName: "The Field",
     location: {
         latitude: 32.0809,
@@ -107,7 +113,8 @@ export const events: event[] = [
     _id: "106",
     name: "Building Demolition",
     description: "Watching things blow up",
-    datetime: "January 7, 2022 1 pm", // Once again need to worry about how this will be formatted
+    date: "January 7, 2022 7 pm", // Once again need to worry about how this will be formatted
+    time: "1 pm",
     locationName: "The Building",
     location: {
         latitude: 33.4735,
@@ -124,7 +131,8 @@ export const events: event[] = [
     _id: "107",
     name: "Rock Climbing",
     description: "Defying gravity by climbing rocks",
-    datetime: "January 8, 2022 10 am", // Once again need to worry about how this will be formatted
+    date: "January 8, 2022", // Once again need to worry about how this will be formatted
+    time: "10 am",
     locationName: "The Rock Wall",
     location: {
         latitude: 32.8407,
@@ -141,7 +149,8 @@ export const events: event[] = [
     _id: "109",
     name: "Concert",
     description: "Loud music and mosh pits",
-    datetime: "January 9, 2022 8 pm", // Once again need to worry about how this will be formatted
+    date: "January 9, 2022", // Once again need to worry about how this will be formatted
+    time: "8 pm",
     locationName: "the music venue",
     location: {
         latitude: 32.4610,

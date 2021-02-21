@@ -94,7 +94,7 @@ export default function EventCard(props: props) {
       })} elevation={4}>
       <CardHeader
         title={event.name}
-        subheader={event.datetime}
+        subheader={event.date + " at " + event.time}
       />
       <CardMedia
         className={classes.media}

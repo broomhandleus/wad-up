@@ -35,7 +35,8 @@ export interface event {
     _id: string;
     name: string;
     description: string;
-    datetime: string; // Need to seriously consider this type. Working with dates sucks so lets make this easy
+    date: string; // Need to seriously consider this type. Working with dates sucks so lets make this easy
+    time: string; // Need to seriously consider this type. Working with dates sucks so lets make this easy
     locationName: string;
     location: LatLong; // depends how we have them input this info. Needs some thought
     category: EventCategory;
