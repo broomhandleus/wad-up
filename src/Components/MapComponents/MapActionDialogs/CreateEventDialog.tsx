@@ -52,18 +52,18 @@ const validationSchema = yup.object({
   name: yup
     .string()
     .ensure()
-    .required("Username is required")
+    .required("Name is required")
     .matches(/(^[a-zA-Z0-9 :;!?#()-/]+$)/, 'Password may only contain letters, numbers, and these special characters: :;!?#()-/'),
   description: yup
     .string()
     .ensure()
-    .required("Password is required")
+    .required("Description is required")
     .matches(/(^[a-zA-Z0-9 :;!?#()-/]+$)/, 'Password may only contain letters, numbers, and these special characters: :;!?#()-/'),
   date: yup
-    .date()
+    .string()
     .required("Event Date is required"),
   time: yup
-    .date()
+    .string()
     .required("Event Time is required")
 });
 
@@ -96,6 +96,10 @@ export default function CreateEventDialog(props: props) {
   });
 
   const handleChange = () => {
+    console.log(`Dirty: ${formik.dirty}`);
+    console.log(`Valid: ${formik.isValid}`);
+    console.log(`Set Disable: ${!(formik.dirty && formik.isValid)}`);
+    console.log(formik.errors);
     setDisableCreate(!(formik.dirty && formik.isValid));
   }
   const handlePickerChange = (attr: string, value: MaterialUiPickersDate) => {
@@ -148,8 +152,8 @@ export default function CreateEventDialog(props: props) {
                   label="Event Date"
                   format="MM/dd/yyyy"
                   onBlur={formik.handleBlur}
-                  error={formik.touched.description && Boolean(formik.errors.description)}
-                  helperText={formik.touched.description && formik.errors.description ? formik.errors.description : "Pick a Date"}
+                  error={formik.touched.date && Boolean(formik.errors.date)}
+                  helperText={formik.touched.date && formik.errors.date ? formik.errors.date : "Pick a Date"}
                   value={formik.values.date}
                   onChange={value => handlePickerChange("date", value)}
                   KeyboardButtonProps={{
@@ -163,8 +167,8 @@ export default function CreateEventDialog(props: props) {
                   id="time-picker"
                   label="Event Time"
                   onBlur={formik.handleBlur}
-                  error={formik.touched.description && Boolean(formik.errors.description)}
-                  helperText={formik.touched.description && formik.errors.description ? formik.errors.description : "Pick a Time"}
+                  error={formik.touched.time && Boolean(formik.errors.time)}
+                  helperText={formik.touched.time && formik.errors.time ? formik.errors.time : "Pick a Time"}
                   value={formik.values.time}
                   onChange={value => handlePickerChange("time", value)}
                   KeyboardButtonProps={{
